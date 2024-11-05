@@ -3,7 +3,7 @@ on:
   - push
 jobs: 
   dire_bonjour:
-    runs-on: unbuntu-22.04
+    runs-on: unbuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: ls -l
