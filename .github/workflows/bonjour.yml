@@ -8,5 +8,6 @@ jobs:
       image: gitpod/workspace-node-22
       options: --user root
     steps:
+      - uses: actions/checkout@v4
       - run: npm ci
       - run: npm run lint
