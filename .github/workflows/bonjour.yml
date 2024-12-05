@@ -4,10 +4,9 @@ on:
 jobs:
   node_test:
     runs-on: ubuntu-22.04
-    container:
-      image: gitpod/workspace-node-22
-      options: --user root
+    env: 
+      IMAGE_NAME: "mynode"
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci
-      - run: npm run lint
+      - run: docker image build --tag="${IMAGE_NAME}" .
+      - run: docker container run "${IMAGE_NAME}" npm run lint  
