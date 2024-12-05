@@ -9,4 +9,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: docker image build --tag="${IMAGE_NAME}" .
-      - run: docker container run --workdir="$(pwd)" --volume="$(pwd)/index.js:$(pwd)/index.js" "${IMAGE_NAME}" la -la 
+      - run: docker container run --workdir="$(pwd)" --volume="$(pwd)/index.js:$(pwd)/index.js" "${IMAGE_NAME}" ls -la 
