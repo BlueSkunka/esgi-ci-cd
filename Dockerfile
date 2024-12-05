@@ -1,3 +1,3 @@
 FROM node:23
-
+LABEL PR="TEST PR"
 WORKDIR /app
