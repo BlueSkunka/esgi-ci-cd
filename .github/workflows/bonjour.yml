@@ -1,6 +1,10 @@
 name: Bonjour
 on:
-  - push
+  push:
+    branches:
+      - main
+  pull_request:
+      types: [opened, synchronize, reopened, closed]
 jobs:
   dire_bonjour:
     runs-on: ubuntu-22.04
