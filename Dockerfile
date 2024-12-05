@@ -1,8 +1,3 @@
-FROM node:22.12
+FROM node:23
 
 WORKDIR /app
-
-COPY package.json package.json
-COPY package-lock.json package-lock.json
-
-RUN npm clean-install
