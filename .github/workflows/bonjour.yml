@@ -28,18 +28,11 @@ jobs:
           dockerfile: Dockerfile
       - run: docker image build --tag="${IMAGE_NAME}" .
       - run: docker container run --volume=./:/app "${IMAGE_NAME}" npm clean-install && npm run lint
-      - name: Login to Docker Hub
+      - uses: ./.github/actions/docker-login-push-action
         if: startsWith(github.ref, 'refs/heads/main')
-        uses: docker/login-action@v3.1.0
         with:
-          username: skunka
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push to Docker Hub
-        if: startsWith(github.ref, 'refs/heads/main')
-        uses: docker/build-push-action@v6
-        with: 
-          push: true
-          tags: "skunka/esgi-ci-cd:unstable"
+          DOCKERHUB_USERNAME: skunka
+          DOCKERHUB_TAG: unstable
   docker_push:
     runs-on: ubuntu-22.04
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
@@ -48,13 +41,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: "${{  github.ref }}"
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3.1.0
+      - uses: ./.github/actions/docker-login-push-action
+        if: startsWith(github.ref, 'refs/heads/main')
         with:
-          username: skunka
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push to Docker Hub
-        uses: docker/build-push-action@v6
-        with: 
-          push: true
-          tags: "skunka/esgi-ci-cd:${{ github.ref_name }}"
+          DOCKERHUB_USERNAME: skunka
+          DOCKERHUB_TAG: ${{ github.ref_name }}
