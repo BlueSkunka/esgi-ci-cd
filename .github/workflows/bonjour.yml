@@ -30,7 +30,7 @@ jobs:
       - run: docker container run --volume=./:/app "${IMAGE_NAME}" npm clean-install && npm run lint
   docker_push:
     runs-on: ubuntu-22.04
-    if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
